@@ -542,6 +542,178 @@
             margin-top: 1rem;
         }
         
+        /* Product Gallery Section */
+        .gallery-section {
+            padding: 120px 0;
+            background: white;
+        }
+        
+        .gallery-filter {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .gallery-item {
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            height: 100%;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .gallery-image-container {
+            position: relative;
+            overflow: hidden;
+            height: 250px;
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.05);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-overlay-icon {
+            color: white;
+            font-size: 2rem;
+            background: var(--primary-color);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-overlay-icon {
+            transform: scale(1);
+        }
+        
+        .gallery-info {
+            padding: 1.5rem;
+            background: white;
+        }
+        
+        .gallery-category {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .gallery-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gallery-description {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        /* Lightbox Modal */
+        .modal-lightbox .modal-dialog {
+            max-width: 90%;
+            margin: 2rem auto;
+        }
+        
+        .modal-lightbox .modal-content {
+            border-radius: 15px;
+            overflow: hidden;
+            border: none;
+        }
+        
+        .modal-lightbox .modal-header {
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 1.5rem;
+        }
+        
+        .modal-lightbox .modal-body {
+            padding: 0;
+        }
+        
+        .lightbox-image {
+            width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+        }
+        
+        .lightbox-content {
+            padding: 1.5rem;
+        }
+        
+        .lightbox-category {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .lightbox-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .lightbox-description {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .lightbox-features {
+            margin-bottom: 1.5rem;
+        }
+        
+        .lightbox-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .lightbox-feature i {
+            color: var(--success-color);
+            margin-right: 0.5rem;
+        }
+        
         /* Testimonials Section */
         .testimonials-section {
             padding: 120px 0;
@@ -972,7 +1144,8 @@
             
             .feature-card,
             .contact-card,
-            .product-card {
+            .product-card,
+            .gallery-item {
                 margin-bottom: 2rem;
             }
             
@@ -1007,6 +1180,11 @@
                 height: 50px;
                 font-size: 1.1rem;
             }
+            
+            .modal-lightbox .modal-dialog {
+                max-width: 95%;
+                margin: 1rem auto;
+            }
         }
         
         @media (max-width: 576px) {
@@ -1026,6 +1204,7 @@
             .about-section,
             .features-section,
             .products-section,
+            .gallery-section,
             .contact-section,
             .testimonials-section,
             .faq-section {
@@ -1049,6 +1228,10 @@
             
             .product-body {
                 padding: 1.5rem;
+            }
+            
+            .gallery-image-container {
+                height: 200px;
             }
         }
         
@@ -1082,7 +1265,8 @@
             
             .feature-card,
             .product-card,
-            .contact-card {
+            .contact-card,
+            .gallery-item {
                 border: 2px solid #000000;
             }
         }
@@ -1120,6 +1304,30 @@
         </div>
     </div>
 
+    <!-- Lightbox Modal -->
+    <div class="modal fade modal-lightbox" id="galleryModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="galleryModalLabel">Product Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img src="" class="lightbox-image" alt="Product Image" id="lightboxImage">
+                    <div class="lightbox-content">
+                        <div class="lightbox-category" id="lightboxCategory"></div>
+                        <h3 class="lightbox-title" id="lightboxTitle"></h3>
+                        <p class="lightbox-description" id="lightboxDescription"></p>
+                        <div class="lightbox-features" id="lightboxFeatures"></div>
+                        <a href="#contact" class="btn-cta" data-bs-dismiss="modal">
+                            <i class="fas fa-envelope me-2"></i>Inquire About This Product
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-transparent fixed-top">
         <div class="container">
@@ -1139,6 +1347,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#products">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#gallery">Gallery</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#testimonials">Reviews</a>
@@ -1172,8 +1383,8 @@
                             <a href="#products" class="btn-hero btn-primary-hero">
                                 <i class="fas fa-box me-2"></i>View Products
                             </a>
-                            <a href="#contact" class="btn-hero btn-secondary-hero">
-                                <i class="fas fa-phone me-2"></i>Contact Us
+                            <a href="#gallery" class="btn-hero btn-secondary-hero">
+                                <i class="fas fa-images me-2"></i>View Gallery
                             </a>
                         </div>
                     </div>
@@ -1261,7 +1472,7 @@
                             </div>
                             <div class="col-6">
                                 <div class="stat-item animate-on-scroll">
-                                    <div class="stat-number">10+</div>
+                                    <div class="stat-number">20+</div>
                                     <div class="stat-label">Years Experience</div>
                                 </div>
                             </div>
@@ -1523,6 +1734,175 @@
         </div>
     </section>
 
+    <!-- Product Gallery Section -->
+    <section id="gallery" class="gallery-section">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Product Gallery</h2>
+            <p class="section-subtitle animate-on-scroll">Explore our premium PU foam products through images</p>
+            
+            <!-- Gallery Filter -->
+            <div class="gallery-filter animate-on-scroll">
+                <button class="filter-btn active" data-filter="all">All Products</button>
+                <button class="filter-btn" data-filter="furniture">Furniture</button>
+                <button class="filter-btn" data-filter="bedding">Bedding</button>
+                <button class="filter-btn" data-filter="automotive">Automotive</button>
+                <button class="filter-btn" data-filter="packaging">Packaging</button>
+                <button class="filter-btn" data-filter="industrial">Industrial</button>
+            </div>
+            
+            <div class="row g-4" id="gallery-grid">
+                <!-- Furniture Foam Images -->
+                <div class="col-lg-4 col-md-6 gallery-item" data-category="furniture">
+                    <div class="gallery-image-container">
+                        <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="gallery-image" alt="Furniture Foam for Sofas">
+                        <div class="gallery-overlay">
+                            <div class="gallery-overlay-icon">
+                                <i class="fas fa-search-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <div class="gallery-category">Furniture Foam</div>
+                        <h3 class="gallery-title">Premium Sofa Cushioning</h3>
+                        <p class="gallery-description">High-density foam with excellent comfort and durability for sofa manufacturing.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 gallery-item" data-category="furniture">
+                    <div class="gallery-image-container">
+                        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="gallery-image" alt="Office Chair Foam">
+                        <div class="gallery-overlay">
+                            <div class="gallery-overlay-icon">
+                                <i class="fas fa-search-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <div class="gallery-category">Furniture Foam</div>
+                        <h3 class="gallery-title">Ergonomic Office Chair Foam</h3>
+                        <p class="gallery-description">Specialized foam for office chairs providing optimal support and comfort.</p>
+                    </div>
+                </div>
+                
+                <!-- Bedding Foam Images -->
+                <div class="col-lg-4 col-md-6 gallery-item" data-category="bedding">
+                    <div class="gallery-image-container">
+                        <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="gallery-image" alt="Mattress Foam">
+                        <div class="gallery-overlay">
+                            <div class="gallery-overlay-icon">
+                                <i class="fas fa-search-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <div class="gallery-category">Bedding Foam</div>
+                        <h3 class="gallery-title">Luxury Mattress Foam</h3>
+                        <p class="gallery-description">Premium quality foam for mattresses with orthopedic support features.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 gallery-item" data-category="bedding">
+                    <div class="gallery-image-container">
+                        <img src="https://images.unsplash.com/photo-1654801816121-2beac3d9af53?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fExhbmRzY2FwZSUyME1lbW9yeSUyMGZvYW0lMjBwaWxsb3dzfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=80" class="gallery-image" alt="Pillow Foam">
+                        <div class="gallery-overlay">
+                            <div class="gallery-overlay-icon">
+                                <i class="fas fa-search-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <div class="gallery-category">Bedding Foam</div>
+                        <h3 class="gallery-title">Memory Foam Pillows</h3>
+                        <p class="gallery-description">Custom-shaped memory foam for premium comfort pillows.</p>
+                    </div>
+                </div>
+                
+                <!-- Automotive Foam Images -->
+                <div class="col-lg-4 col-md-6 gallery-item" data-category="automotive">
+                    <div class="gallery-image-container">
+                        <img src="https://images.unsplash.com/photo-1707943633267-367187c48b36?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjB8fExhbmRzY2FwZSUyMEF1dG9tb3RpdmUlMjBzZWF0JTIwY3VzaGlvbnN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=80" class="gallery-image" alt="Car Seat Foam">
+                        <div class="gallery-overlay">
+                            <div class="gallery-overlay-icon">
+                                <i class="fas fa-search-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <div class="gallery-category">Automotive Foam</div>
+                        <h3 class="gallery-title">Automotive Seat Cushions</h3>
+                        <p class="gallery-description">High-resilience foam for car seats with excellent vibration absorption.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 gallery-item" data-category="automotive">
+                    <div class="gallery-image-container">
+                        <img src="https://images.unsplash.com/photo-1493238792000-8113da705763?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="gallery-image" alt="Automotive Seat Foam">
+                        <div class="gallery-overlay">
+                            <div class="gallery-overlay-icon">
+                                <i class="fas fa-search-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <div class="gallery-category">Automotive Foam</div>
+                        <h3 class="gallery-title">Premium Car Seat Foam</h3>
+                        <p class="gallery-description">Custom-molded foam for automotive seating applications.</p>
+                    </div>
+                </div>
+                
+                <!-- Packaging Foam Images -->
+                <div class="col-lg-4 col-md-6 gallery-item" data-category="packaging">
+                    <div class="gallery-image-container">
+                        <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="gallery-image" alt="Packaging Foam">
+                        <div class="gallery-overlay">
+                            <div class="gallery-overlay-icon">
+                                <i class="fas fa-search-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <div class="gallery-category">Packaging Foam</div>
+                        <h3 class="gallery-title">Protective Packaging Solutions</h3>
+                        <p class="gallery-description">Custom-cut foam for secure packaging of fragile and sensitive items.</p>
+                    </div>
+                </div>
+                
+                <!-- Industrial Foam Images -->
+                <div class="col-lg-4 col-md-6 gallery-item" data-category="industrial">
+                    <div class="gallery-image-container">
+                        <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="gallery-image" alt="Industrial Foam">
+                        <div class="gallery-overlay">
+                            <div class="gallery-overlay-icon">
+                                <i class="fas fa-search-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <div class="gallery-category">Industrial Foam</div>
+                        <h3 class="gallery-title">Specialized Industrial Applications</h3>
+                        <p class="gallery-description">High-performance foam for industrial machinery and equipment.</p>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 gallery-item" data-category="furniture">
+                    <div class="gallery-image-container">
+                        <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="gallery-image" alt="Custom Furniture Foam">
+                        <div class="gallery-overlay">
+                            <div class="gallery-overlay-icon">
+                                <i class="fas fa-search-plus"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-info">
+                        <div class="gallery-category">Furniture Foam</div>
+                        <h3 class="gallery-title">Custom Furniture Applications</h3>
+                        <p class="gallery-description">Specialty foam cut to precise specifications for custom furniture designs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Testimonials Section -->
     <section id="testimonials" class="testimonials-section">
         <div class="container">
@@ -1657,19 +2037,19 @@
                 <div class="col-lg-8">
                     <div class="contact-form animate-on-scroll">
                         <h3 class="mb-4" style="color: white;">Send Us a Message</h3>
-                        <form id="contact-form">
+                        <form id="whatsapp-form">
                             <div class="row g-3">
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="Your Name" required>
+                                    <input type="text" class="form-control" id="name" placeholder="Your Name" required>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="email" class="form-control" placeholder="Email Address" required>
+                                    <input type="email" class="form-control" id="email" placeholder="Email Address" required>
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="tel" class="form-control" placeholder="Phone Number" required>
+                                    <input type="tel" class="form-control" id="phone" placeholder="Phone Number" required>
                                 </div>
                                 <div class="col-md-6">
-                                    <select class="form-control" required>
+                                    <select class="form-control" id="product-type" required>
                                         <option value="">Select Product Type</option>
                                         <option value="furniture">Furniture Foam</option>
                                         <option value="bedding">Bedding Foam</option>
@@ -1681,11 +2061,11 @@
                                     </select>
                                 </div>
                                 <div class="col-12">
-                                    <textarea class="form-control" rows="4" placeholder="Tell us about your requirements..." required></textarea>
+                                    <textarea class="form-control" id="message" rows="4" placeholder="Tell us about your requirements..." required></textarea>
                                 </div>
                                 <div class="col-12">
                                     <button type="submit" class="btn-cta w-100">
-                                        <i class="fas fa-paper-plane me-2"></i>Send Message
+                                        <i class="fab fa-whatsapp me-2"></i>Send via WhatsApp
                                     </button>
                                 </div>
                             </div>
@@ -1714,7 +2094,7 @@
                                 <h3 class="contact-title">Email Us</h3>
                                 <p class="contact-text">
                                     <a href="mailto:saifoamindia@gmail.com" class="contact-link">saifoamindia@gmail.com</a><br>
-                                    <small style="color: rgba(255,255,255,0.6);">Quick response guaranteed</small>
+                                    <small style="color: rgba(255,255,255,0.6;">Quick response guaranteed</small>
                                 </p>
                             </div>
                         </div>
@@ -1767,6 +2147,7 @@
                         <li><a href="#home">Home</a></li>
                         <li><a href="#about">About Us</a></li>
                         <li><a href="#products">Products</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
                         <li><a href="#testimonials">Reviews</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
@@ -1842,7 +2223,7 @@
             }
             
             // Update active nav link based on scroll position
-            const sections = ['home', 'about', 'products', 'testimonials', 'faq', 'contact'];
+            const sections = ['home', 'about', 'products', 'gallery', 'testimonials', 'faq', 'contact'];
             sections.forEach(sectionId => {
                 const section = document.getElementById(sectionId);
                 if (section) {
@@ -1967,6 +2348,137 @@
             });
         });
 
+        // Gallery filter functionality
+        const galleryFilterButtons = document.querySelectorAll('.gallery-filter .filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        galleryFilterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                galleryFilterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                const filter = button.getAttribute('data-filter');
+                
+                // Filter gallery items
+                galleryItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'scale(1)';
+                        }, 50);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'scale(0.8)';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+		
+		// WhatsApp form handling - Fixed version
+        document.getElementById('whatsapp-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values using the correct IDs
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const productType = document.getElementById('product-type').value;
+            const message = document.getElementById('message').value;
+            
+            // Format the message for WhatsApp
+            const whatsappMessage = `Hello Shree Sai Enterprises!%0A%0A*New Inquiry From Website*%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Email:* ${encodeURIComponent(email)}%0A*Phone:* ${encodeURIComponent(phone)}%0A*Product Type:* ${encodeURIComponent(productType)}%0A*Message:* ${encodeURIComponent(message)}`;
+            
+            // Create WhatsApp URL
+            const whatsappURL = `https://wa.me/918329617017?text=${whatsappMessage}`;
+            
+            // Open WhatsApp in a new tab
+            window.open(whatsappURL, '_blank');
+            
+            // Show success toast
+            const toast = new bootstrap.Toast(document.getElementById('contact-toast'));
+            toast.show();
+            
+            // Reset form
+            this.reset();
+        });
+
+        // Gallery lightbox functionality
+        const galleryModal = new bootstrap.Modal(document.getElementById('galleryModal'));
+        const galleryImages = document.querySelectorAll('.gallery-item');
+        
+        galleryImages.forEach(item => {
+            item.addEventListener('click', () => {
+                const imageSrc = item.querySelector('.gallery-image').src;
+                const category = item.querySelector('.gallery-category').textContent;
+                const title = item.querySelector('.gallery-title').textContent;
+                const description = item.querySelector('.gallery-description').textContent;
+                
+                // Set modal content
+                document.getElementById('lightboxImage').src = imageSrc;
+                document.getElementById('lightboxCategory').textContent = category;
+                document.getElementById('lightboxTitle').textContent = title;
+                document.getElementById('lightboxDescription').textContent = description;
+                
+                // Clear previous features
+                document.getElementById('lightboxFeatures').innerHTML = '';
+                
+                // Add sample features based on category
+                let features = [];
+                if (category === 'Furniture Foam') {
+                    features = [
+                        'High-density foam (25-45 kg/m³)',
+                        'Fire-retardant options available',
+                        'Custom sizes and shapes',
+                        'Long-lasting durability'
+                    ];
+                } else if (category === 'Bedding Foam') {
+                    features = [
+                        'Orthopedic support',
+                        'Breathable open-cell structure',
+                        'Hypoallergenic options',
+                        'Anti-microbial treatment'
+                    ];
+                } else if (category === 'Automotive Foam') {
+                    features = [
+                        'Vibration dampening',
+                        'Heat & UV resistant',
+                        'High-resilience formulation',
+                        'Custom molded shapes'
+                    ];
+                } else if (category === 'Packaging Foam') {
+                    features = [
+                        'Shock absorption',
+                        'Lightweight protection',
+                        'Custom cut shapes',
+                        'Anti-static options'
+                    ];
+                } else if (category === 'Industrial Foam') {
+                    features = [
+                        'Chemical resistant',
+                        'Extreme temperature rated',
+                        'High-performance grades',
+                        'Technical specifications'
+                    ];
+                }
+                
+                // Add features to modal
+                features.forEach(feature => {
+                    const featureElement = document.createElement('div');
+                    featureElement.classList.add('lightbox-feature');
+                    featureElement.innerHTML = `<i class="fas fa-check-circle"></i> ${feature}`;
+                    document.getElementById('lightboxFeatures').appendChild(featureElement);
+                });
+                
+                // Show modal
+                galleryModal.show();
+            });
+        });
+
         // FAQ functionality
         document.querySelectorAll('.faq-question').forEach(question => {
             question.addEventListener('click', () => {
@@ -1986,7 +2498,7 @@
         });
 
         // Contact form handling
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
+        document.getElementById('whatsapp-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
             // Show success toast
@@ -2030,6 +2542,11 @@
                 if (navbarCollapse.classList.contains('show')) {
                     const bsCollapse = new bootstrap.Collapse(navbarCollapse);
                     bsCollapse.hide();
+                }
+                
+                // Close lightbox modal if open
+                if (document.getElementById('galleryModal').classList.contains('show')) {
+                    galleryModal.hide();
                 }
             }
         });
