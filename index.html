@@ -1282,6 +1282,62 @@
                 scroll-behavior: auto !important;
             }
         }
+		
+		.contact-section select.form-control {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    padding: 1rem;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M8 12L2 6h12L8 12z'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 1rem center !important;
+    background-size: 16px 12px !important;
+  }
+  
+  .contact-section select.form-control:focus {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: var(--secondary-color);
+    color: white;
+    box-shadow: 0 0 0 0.25rem rgba(245, 158, 11, 0.25);
+  }
+  
+  .contact-section select.form-control option {
+    background: #2d3748;
+    color: white;
+  }
+  
+  /* For Firefox */
+  @-moz-document url-prefix() {
+    .contact-section select.form-control {
+      color: white !important;
+      text-shadow: 0 0 0 white;
+    }
+    
+    .contact-section select.form-control option {
+      background: #2d3748;
+      color: white;
+    }
+  }
+  
+  /* For IE */
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .contact-section select.form-control {
+      color: white;
+    }
+    
+    .contact-section select.form-control::-ms-value {
+      background: transparent;
+      color: white;
+    }
+    
+    .contact-section select.form-control::-ms-expand {
+      display: none;
+    }
+  }
     </style>
 </head>
 <body>
